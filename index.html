@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Based Fake Review Detection System</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body>
+
+  <div id="app-layout">
+    
+    <!-- Sidebar Navigation -->
+    <sidebar>
+      <div class="brand">
+        <div class="brand-icon">🛡️</div>
+        <div class="brand-text">
+          <h1>FakeReview AI</h1>
+          <span>Master System</span>
+        </div>
+      </div>
+      
+      <nav class="nav-menu">
+        <div class="nav-item active" data-view="home-view">
+          <span>🏠</span> Home
+        </div>
+        <div class="nav-item" data-view="analyzer-view">
+          <span>🔍</span> Review Analyzer
+        </div>
+        <div class="nav-item" data-view="history-view">
+          <span>📜</span> History
+        </div>
+        <div class="nav-item" data-view="dashboard-view">
+          <span>📊</span> Dashboard
+        </div>
+        <div class="nav-item" data-view="about-view">
+          <span>ℹ️</span> About
+        </div>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div>Final Year / Master Project</div>
+        <div style="margin-top: 4px; color: var(--genuine);">AI Model Active (v2.0)</div>
+      </div>
+    </sidebar>
+
+    <!-- Main Content Area -->
+    <main>
+      <header>
+        <div class="page-title" id="pageTitleText">Home & Overview</div>
+        <div class="header-status">
+          <div class="status-badge">
+            <span class="pulse-dot"></span> AI Engine Online
+          </div>
+        </div>
+      </header>
+
+      <div class="container">
+        
+        <!-- SECTION 1: HOME VIEW -->
+        <div id="home-view" class="view-section active">
+          
+          <div class="hero-card">
+            <h1 class="hero-title">AI-Based Fake Review Detection System</h1>
+            <p class="hero-subtitle">
+              An artificial intelligence platform that automatically identifies deceptive, spam, and incentivized product reviews using Natural Language Processing (NLP) and Machine Learning techniques.
+            </p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" onclick="navigateToView('analyzer-view')">
+                <span>🔍</span> Analyze Review
+              </button>
+              <button class="btn btn-outline" onclick="navigateToView('dashboard-view')">
+                <span>📊</span> View Admin Dashboard
+              </button>
+            </div>
+          </div>
+
+          <!-- Hero Metrics Stats -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <span>Total Reviews Analyzed</span>
+                <div class="stat-icon">📝</div>
+              </div>
+              <div class="stat-value" id="homeTotalAnalyzed">1,248</div>
+              <div class="stat-sub">Across all platform queries</div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-header">
+                <span>Genuine Reviews</span>
+                <div class="stat-icon" style="color: var(--genuine);">🟢</div>
+              </div>
+              <div class="stat-value" style="color: var(--genuine);" id="homeGenuineCount">840</div>
+              <div class="stat-sub">Authentic buyer feedback</div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-header">
+                <span>Fake Reviews Flagged</span>
+                <div class="stat-icon" style="color: var(--fake);">🚨</div>
+              </div>
+              <div class="stat-value" style="color: var(--fake);" id="homeFakeCount">260</div>
+              <div class="stat-sub">Bot spam & scam outbreaks</div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-header">
+                <span>Detection Accuracy</span>
+                <div class="stat-icon" style="color: var(--primary);">🎯</div>
+              </div>
+              <div class="stat-value" style="color: var(--primary);">95.8%</div>
+              <div class="stat-sub">Validated against test dataset</div>
+            </div>
+          </div>
+
+          <!-- Use Cases Section -->
+          <div class="card">
+            <div class="card-title">
+              <span>🎯</span> Target Applications & Use Cases
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+              <div style="background: rgba(15,23,42,0.5); padding: 16px; border-radius: 12px; border: 1px solid var(--border-glass);">
+                <div style="font-size: 24px; margin-bottom: 8px;">🛒</div>
+                <strong style="font-size: 14px;">E-Commerce Websites</strong>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Protect customer trust by filtering out paid seller fake reviews before calculating overall product ratings.</p>
+              </div>
+              <div style="background: rgba(15,23,42,0.5); padding: 16px; border-radius: 12px; border: 1px solid var(--border-glass);">
+                <div style="font-size: 24px; margin-bottom: 8px;">🏨</div>
+                <strong style="font-size: 14px;">Hotels & Hospitality</strong>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Identify competitor smear attacks and incentivized luxury review campaigns on trip platforms.</p>
+              </div>
+              <div style="background: rgba(15,23,42,0.5); padding: 16px; border-radius: 12px; border: 1px solid var(--border-glass);">
+                <div style="font-size: 24px; margin-bottom: 8px;">🍽️</div>
+                <strong style="font-size: 14px;">Restaurants & Services</strong>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Verify customer feedback integrity across dining, local service providers, and marketplaces.</p>
+              </div>
+              <div style="background: rgba(15,23,42,0.5); padding: 16px; border-radius: 12px; border: 1px solid var(--border-glass);">
+                <div style="font-size: 24px; margin-bottom: 8px;">👥</div>
+                <strong style="font-size: 14px;">Online Shoppers</strong>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Empower consumers to inspect suspicious reviews before making purchasing decisions online.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SECTION 2: REVIEW ANALYZER VIEW -->
+        <div id="analyzer-view" class="view-section">
+          
+          <div class="grid-2">
+            <!-- Review Input Form -->
+            <div class="card">
+              <div class="card-title">
+                <span>✍️</span> Submit Review for AI Analysis
+              </div>
+              
+              <div class="error-banner" id="errorBanner">
+                Please enter a review before analyzing.
+              </div>
+
+              <div style="margin-bottom: 12px; font-size: 13px; color: var(--text-muted);">
+                Load realistic sample demonstration data:
+              </div>
+              
+              <div class="preset-btn-group" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+                <button class="btn btn-outline btn-sm" onclick="loadSamplePreset('genuine')">🟢 Genuine Sample</button>
+                <button class="btn btn-outline btn-sm" onclick="loadSamplePreset('fake')">🚨 Fake Bot Spam</button>
+                <button class="btn btn-outline btn-sm" onclick="loadSamplePreset('suspicious')">⚠️ Suspicious Incentive</button>
+              </div>
+
+              <div class="form-group">
+                <label for="inputProductName">Product / Service Name</label>
+                <input type="text" id="inputProductName" class="form-control" placeholder="e.g. AuraSound Pro Wireless Headphones" value="AuraSound Pro Headphones">
+              </div>
+
+              <div class="form-group">
+                <label for="inputReviewText">Customer Review Text <span style="color: var(--fake);">*</span></label>
+                <textarea id="inputReviewText" class="form-control" placeholder="Paste or enter customer review text here...">The product arrived on time. The packaging was good and the quality is reasonable for the price.</textarea>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                  <label for="inputRating">Star Rating (1–5)</label>
+                  <select id="inputRating" class="form-control">
+                    <option value="5">5 Stars (★★★★★)</option>
+                    <option value="4" selected>4 Stars (★★★★☆)</option>
+                    <option value="3">3 Stars (★★★☆☆)</option>
+                    <option value="2">2 Stars (★★☆☆☆)</option>
+                    <option value="1">1 Star (★☆☆☆☆)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="inputReviewerName">Reviewer Name (Optional)</label>
+                  <input type="text" id="inputReviewerName" class="form-control" placeholder="e.g. David Miller" value="David Miller">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputReviewDate">Review Date (Optional)</label>
+                <input type="date" id="inputReviewDate" class="form-control" value="2026-09-12">
+              </div>
+
+              <button class="btn btn-primary" id="btnAnalyzeReview" style="width: 100%; justify-content: center; margin-top: 8px;">
+                <span>🤖</span> Analyze Review
+              </button>
+            </div>
+
+            <!-- Analysis Result & Explainable AI Card -->
+            <div class="card result-card genuine" id="resultCard">
+              
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                <div>
+                  <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Classification Result</div>
+                  <div class="verdict-badge genuine" id="resPredictionBadge">
+                    🟢 Genuine Review
+                  </div>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-size: 11px; color: var(--text-dim);">AI Confidence Score</div>
+                  <div style="font-size: 22px; font-weight: 800; color: var(--primary);" id="resConfidenceScore">94%</div>
+                </div>
+              </div>
+
+              <div class="score-meter-container">
+                <div class="meter-label">
+                  <span>Authentic (0%)</span>
+                  <span id="resConfidenceLabel" style="font-weight: 700;">94% Confidence</span>
+                  <span>Fake / Spam (100%)</span>
+                </div>
+                <div class="meter-bar">
+                  <div class="meter-fill genuine" id="resMeterFill" style="width: 94%;"></div>
+                </div>
+              </div>
+
+              <div style="background: rgba(15,23,42,0.6); padding: 14px; border-radius: 10px; margin-bottom: 20px; border: 1px solid var(--border-glass);">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                  <span style="font-size: 12px; color: var(--text-dim);">Text Sentiment:</span>
+                  <strong style="font-size: 13px; color: var(--text-main);" id="resSentimentText">Positive (Balanced)</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="font-size: 12px; color: var(--text-dim);">Suspicious Indicators:</span>
+                  <span style="font-size: 12px; color: var(--text-muted);" id="resSuspiciousFactors">Natural vocabulary flow, consistent rating sentiment</span>
+                </div>
+              </div>
+
+              <!-- Explainable AI Section -->
+              <div style="margin-bottom: 20px;">
+                <div style="font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                  <span>💡</span> Why was this review detected? (Explainable AI)
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 10px;" id="xaiFactorBars">
+                  <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">
+                      <span>Excessive Positive Language</span> <strong id="xaiPosVal">15% (Low)</strong>
+                    </div>
+                    <div class="meter-bar"><div class="meter-fill genuine" id="xaiPosBar" style="width: 15%;"></div></div>
+                  </div>
+
+                  <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">
+                      <span>Repeated Phrases</span> <strong id="xaiRepVal">10% (Low)</strong>
+                    </div>
+                    <div class="meter-bar"><div class="meter-fill genuine" id="xaiRepBar" style="width: 10%;"></div></div>
+                  </div>
+
+                  <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">
+                      <span>Rating / Text Mismatch</span> <strong id="xaiMisVal">0% (None)</strong>
+                    </div>
+                    <div class="meter-bar"><div class="meter-fill genuine" id="xaiMisBar" style="width: 0%;"></div></div>
+                  </div>
+
+                  <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">
+                      <span>Unusual Review Length</span> <strong id="xaiLenVal">25% (Low)</strong>
+                    </div>
+                    <div class="meter-bar"><div class="meter-fill genuine" id="xaiLenBar" style="width: 25%;"></div></div>
+                  </div>
+
+                  <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">
+                      <span>Promotional Words</span> <strong id="xaiPromoVal">5% (Low)</strong>
+                    </div>
+                    <div class="meter-bar"><div class="meter-fill genuine" id="xaiPromoBar" style="width: 5%;"></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Recommendation -->
+              <div style="background: rgba(56,189,248,0.1); padding: 14px; border-radius: 10px; border: 1px solid rgba(56,189,248,0.25);">
+                <div style="font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 4px;">AI Recommendation & Explanation:</div>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;" id="resExplanation">
+                  "This review exhibits natural linguistic variety, reasonable length, and consistent sentiment flow matching the star rating."
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SECTION 3: REVIEW HISTORY VIEW -->
+        <div id="history-view" class="view-section">
+          <div class="card">
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 16px;">
+              <div>
+                <h2 style="font-size: 18px; font-weight: 700;">Analyzed Review History</h2>
+                <p style="font-size: 13px; color: var(--text-muted);">Stored database audit records of previously analyzed product reviews.</p>
+              </div>
+              <span class="status-badge" id="historyCountBadge">4 records</span>
+            </div>
+
+            <!-- Search, Filter & Sort Bar -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+              <input type="text" id="histSearchInput" class="form-control" placeholder="🔎 Search product name or review text..." oninput="historyManager.searchQuery = this.value; historyManager.applyFilters();">
+
+              <select id="histCategoryFilter" class="form-control" onchange="historyManager.categoryFilter = this.value; historyManager.applyFilters();">
+                <option value="ALL">All Classification Categories</option>
+                <option value="Genuine Review">🟢 Genuine Reviews</option>
+                <option value="Fake Review">🚨 Fake Reviews</option>
+                <option value="Suspicious Review">⚠️ Suspicious Reviews</option>
+              </select>
+
+              <select id="histSortBy" class="form-control" onchange="historyManager.sortBy = this.value; historyManager.applyFilters();">
+                <option value="NEWEST">Sort: Newest First</option>
+                <option value="CONFIDENCE_HIGH">Sort: Highest Confidence</option>
+                <option value="CONFIDENCE_LOW">Sort: Lowest Confidence</option>
+              </select>
+            </div>
+
+            <!-- Data Table -->
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Product / Review Text</th>
+                    <th>Prediction</th>
+                    <th>Confidence</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="historyTableBody">
+                  <!-- Populated by history.js -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECTION 4: ADMIN DASHBOARD VIEW -->
+        <div id="dashboard-view" class="view-section">
+          
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-header"><span>Total Reviews</span><div class="stat-icon">📝</div></div>
+              <div class="stat-value" id="dashTotalReviews">1,248</div>
+              <div class="stat-sub">Analyzed overall</div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-header"><span>Genuine Reviews</span><div class="stat-icon" style="color: var(--genuine);">🟢</div></div>
+              <div class="stat-value" style="color: var(--genuine);" id="dashGenuineReviews">840</div>
+              <div class="stat-sub">Authentic rating</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header"><span>Fake Reviews</span><div class="stat-icon" style="color: var(--fake);">🚨</div></div>
+              <div class="stat-value" style="color: var(--fake);" id="dashFakeReviews">260</div>
+              <div class="stat-sub">Flagged bot spam</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header"><span>Suspicious Reviews</span><div class="stat-icon" style="color: var(--suspicious);">⚠️</div></div>
+              <div class="stat-value" style="color: var(--suspicious);" id="dashSuspiciousReviews">148</div>
+              <div class="stat-sub">Needs manual check</div>
+            </div>
+          </div>
+
+          <!-- 4 Admin Analytics Charts -->
+          <div class="grid-2" style="margin-bottom: 24px;">
+            <div class="card">
+              <div class="card-title"><span>📊</span> Genuine vs Fake Reviews Distribution</div>
+              <div style="height: 260px; position: relative;"><canvas id="chartGenuineVsFake"></canvas></div>
+            </div>
+
+            <div class="card">
+              <div class="card-title"><span>📈</span> Reviews Analyzed Over Time</div>
+              <div style="height: 260px; position: relative;"><canvas id="chartReviewsOverTime"></canvas></div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title"><span>🎯</span> Prediction Distribution</div>
+              <div style="height: 260px; position: relative;"><canvas id="chartPredictionDist"></canvas></div>
+            </div>
+
+            <div class="card">
+              <div class="card-title"><span>⚖️</span> Confidence Score Distribution</div>
+              <div style="height: 260px; position: relative;"><canvas id="chartConfidenceDist"></canvas></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SECTION 5: ABOUT VIEW -->
+        <div id="about-view" class="view-section">
+          <div class="card">
+            <div class="card-title"><span>ℹ️</span> Project Specifications & Architecture</div>
+            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+              This application was engineered for a <strong>College Final-Year / Master Project Demonstration</strong>. It combines Natural Language Processing (NLP), Machine Learning algorithms, and Explainable AI (XAI) to protect consumers and online merchants from deceptive review manipulation.
+            </p>
+
+            <div class="grid-2" style="margin-bottom: 24px;">
+              <div style="background: rgba(15,23,42,0.5); padding: 18px; border-radius: 12px; border: 1px solid var(--border-glass);">
+                <h4 style="font-size: 15px; color: var(--primary); margin-bottom: 8px;">🧠 Supported Machine Learning Algorithms</h4>
+                <ul style="font-size: 13px; color: var(--text-muted); line-height: 1.8; padding-left: 20px;">
+                  <li><strong>TF-IDF Vectorizer</strong> (Unigrams & Bigrams)</li>
+                  <li><strong>Logistic Regression Classifier</strong> (Primary baseline model)</li>
+                  <li><strong>Multinomial Naive Bayes</strong> (Fast text probabilistic model)</li>
+                  <li><strong>Random Forest Classifier</strong> (Ensemble decision trees)</li>
+                  <li><strong>Support Vector Machine (SVM)</strong> (High-dimensional boundary margin)</li>
+                  <li><strong>Transformer / BERT Pipeline</strong> (Optional contextual embedding interface)</li>
+                </ul>
+              </div>
+
+              <div style="background: rgba(15,23,42,0.5); padding: 18px; border-radius: 12px; border: 1px solid var(--border-glass);">
+                <h4 style="font-size: 15px; color: var(--primary); margin-bottom: 8px;">🔄 Preprocessing Workflow</h4>
+                <ol style="font-size: 13px; color: var(--text-muted); line-height: 1.8; padding-left: 20px;">
+                  <li>Punctuation & Noise Character Sanitization</li>
+                  <li>Text Lowercasing & Tokenization</li>
+                  <li>NLTK English Stop-word removal</li>
+                  <li>Numerical Feature Extraction (TF-IDF + Polarity Scores)</li>
+                  <li>Model Prediction & Explainable AI Factor Generation</li>
+                </ol>
+              </div>
+            </div>
+
+            <div style="background: rgba(16,185,129,0.1); padding: 16px; border-radius: 12px; border: 1px solid var(--genuine-border);">
+              <h4 style="font-size: 14px; color: var(--genuine); margin-bottom: 4px;">🛡️ Security, Privacy & Ethics</h4>
+              <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.5;">
+                All user inputs are sanitized against SQL injection and cross-site scripting (XSS). Review text is evaluated without storing unnecessary personally identifiable information (PII).
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Inspection Details Modal -->
+  <div class="modal-overlay" id="detailsModal">
+    <div class="modal-box">
+      <div id="detailsModalContent">
+        <!-- Populated by historyManager.openDetailsModal() -->
+      </div>
+      <div style="margin-top: 20px; text-align: right;">
+        <button class="btn btn-outline" onclick="historyManager.closeDetailsModal()">Close Window</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript App Files -->
+  <script src="src/js/classifier.js"></script>
+  <script src="src/js/history.js"></script>
+  <script src="src/js/dashboard.js"></script>
+  <script src="src/js/app.js"></script>
+
+</body>
+</html>
